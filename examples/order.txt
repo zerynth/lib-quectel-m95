@@ -1,0 +1,4 @@
+#Quectel
+    ##UG96
+        Secure_Socket
+        UDP_Socket

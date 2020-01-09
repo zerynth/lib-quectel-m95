@@ -1,0 +1,14 @@
+---
+description: Driver for Quectel M95 GSM modems
+fullname: lib.quectel.m95
+info:
+    chip_manufacturer: Quectel
+    chip_name: M95
+    name: GSM/GPRS Driver
+    type: Connectivity
+keywords:
+- wireless
+- gsm
+- quectel
+title: Quectel M95 GSM modems
+...
