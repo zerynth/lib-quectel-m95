@@ -82,19 +82,25 @@ def init(serial,dtr,rts,power,kill,status,power_on=LOW,kill_on=LOW,status_on=HIG
     "csrc/m95.c",
     "csrc/m95_ifc.c",
     "#csrc/misc/zstdlib.c",
-    "#csrc/zsockets/*",
-#-if ZERYNTH_SSL
-    "#csrc/tls/mbedtls/library/*",
     "#csrc/misc/snprintf.c",
-#-endif
+    "#csrc/zsockets/*",
+    "#csrc/hwcrypto/*",
+    #-if ZERYNTH_SSL
+    ##-if !HAS_BUILTIN_MBEDTLS
+    "#csrc/tls/mbedtls/library/*",
+    ##-endif
+    #-endif
     ],
-    ["ZERYNTH_SOCKETS"],
+    ["VHAL_WIFI"],
     [
-#-if ZERYNTH_SSL
-    "-I#csrc/tls/mbedtls/include",
-    "-I#csrc/misc",
-#-endif
-    "-I#csrc/zsockets"
+        "-I#csrc/zsockets",
+        "-I#csrc/misc",
+        "-I#csrc/hwcrypto",
+        #-if ZERYNTH_SSL
+        ##-if !HAS_BUILTIN_MBEDTLS
+        "-I#csrc/tls/mbedtls/include"
+        ##-endif
+        #-endif
     ])
 def _init(serial,dtr,rts,exc):
     pass
@@ -215,7 +221,7 @@ def operators():
 def set_operator(opname):
     pass
 
-@native_c("_m95_socket_bind",[])
+@native_c("py_net_bind",[])
 def bind(sock,addr):
     pass
 
@@ -231,47 +237,47 @@ def gethostbyname(hostname):
     pass
 
 
-@native_c("_m95_socket_create",[])
+@native_c("py_net_socket",[])
 def socket(family,type,proto):
     pass
 
 def setsockopt(sock,level,optname,value):
     pass
 
-@native_c("_m95_socket_connect",[])
+@native_c("py_net_connect",[])
 def connect(sock,addr):
     pass
 
-@native_c("_m95_socket_close",[])
+@native_c("py_net_close",[])
 def close(sock):
     pass
 
 
-@native_c("_m95_socket_sendto",[])
+@native_c("py_net_sendto",[])
 def sendto(sock,buf,addr,flags=0):
     pass
 
-@native_c("_m95_socket_send",[])
+@native_c("py_net_send",[])
 def send(sock,buf,flags=0):
     pass
 
 def sendall(sock,buf,flags=0):
     send(sock,buf,flags)
 
-@native_c("_m95_socket_recv_into",[])
+@native_c("py_net_recv_into",[])
 def recv_into(sock,buf,bufsize,flags=0,ofs=0):
     pass
 
-@native_c("_m95_socket_recvfrom_into",[])
+@native_c("py_net_recvfrom_into",[])
 def recvfrom_into(sock,buf,bufsize,flags=0):
     pass
 
-@native_c("_m95_secure_socket",[],[])
-def secure_socket(family, type, proto, ctx):
+@native_c("py_net_select",[])
+def select(rlist,wist,xlist,timeout):
     pass
 
-@native_c("_m95_socket_select",[])
-def select(rlist,wist,xlist,timeout):
+@native_c("py_secure_socket",[],[])
+def secure_socket(family, type, proto, ctx):
     pass
 
 @native_c("_m95_rtc",[])

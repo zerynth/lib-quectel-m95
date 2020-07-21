@@ -3083,3 +3083,22 @@ int m95_gzsock_bind(int sock, const struct sockaddr *name, socklen_t namelen){
     return _gs_socket_bind(sock,addr_in);
 }
 
+int m95_gzsock_listen(int s, int backlog) {
+    return 0;
+}
+
+int m95_gzsock_accept(int s, struct sockaddr *addr, socklen_t *addrlen) {
+    return 0;
+}
+
+int m95_gzsock_ioctl(int s, long cmd, void *argp) {
+    return 0;
+}
+
+int m95_gzsock_inet_addr(const char *cp) {
+    return 0;
+}
+
+int m95_gzsock_inet_ntoa(struct in_addr *in) {
+    return 0;
+}
